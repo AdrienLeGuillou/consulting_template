@@ -1,0 +1,56 @@
+---
+title: "Demog Tests"
+params:
+  exp_var: "no_expl"
+output:
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+    number_sections: true
+    smart: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(knitr.kable.NA = "")
+# load required `targets` objects (to make them dependencies)
+tar_load(d_data)
+theme_set(theme_light())
+```
+
+# Explanation of variables: missing values removed
+
+```{r results='asis', warning=FALSE}
+tryCatch({
+  do.call(
+    explain_rmd,
+    args = list(
+      df = d_data,
+      exed = params$exp_var,
+      na.rm = TRUE
+    )
+  )},
+  error = function(e) {
+    print(e)
+   }
+)
+```
+
+# Explanation of variables: missing values kept
+
+```{r results='asis', warning=FALSE}
+tryCatch({
+  do.call(
+    explain_rmd,
+    args = list(
+      df = d_data,
+      exed = params$exp_var,
+      na.rm = FALSE
+    )
+  )},
+  error = function(e) {
+    print(e)
+   }
+)
+```
