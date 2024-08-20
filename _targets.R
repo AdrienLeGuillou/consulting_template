@@ -2,6 +2,8 @@ library(targets)
 
 ## Uncomment to finish the pipeline even if some part errors
 # tar_option_set(error = NULL)
+## Must also comment the `crew` part
+
 library(crew)
 tar_option_set(
   controller = crew_controller_local(workers = 4)
